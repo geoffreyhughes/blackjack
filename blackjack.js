@@ -95,7 +95,7 @@ function displayCards()
 
 }
 
-
+// Creates deck, players, and deals initial cards
 function startGame()
 {
 	createDeck();
