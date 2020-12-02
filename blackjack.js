@@ -20,14 +20,11 @@ function createDeck()
 		{
 			var weight = parseInt(ranks[j]);
 
-			if (ranks[j] == 'J' || ranks[j] == 'Q' || ranks[j] == 'K')
-			{
+			if (ranks[j] == 'Jack' || ranks[j] == 'Queen' || ranks[j] == 'King')
 				weight = 10;
-			}
-			if (ranks[j] == 'A')
-			{
+				
+			if (ranks[j] == 'Ace')
 				weight = 11;
-			}
 
 			var card = {rank: ranks[j], suit: suits[i], weight: weight};
 			deck.push(card);
@@ -65,12 +62,19 @@ function createPlayers(numPlayers)
 	}
 }
 
-function drawCard()
+function drawCard(playerNum)
 {
 	var drawnCard = deck.pop();
-	console.log(drawnCard);
 
-	return drawnCard;
+	// may want to remove console log to prevent player from inspecting the hidden card element
+	console.log(drawnCard);
+	console.log(players[playerNum]);
+
+	players[playerNum]["hand"].push(drawnCard);
+	players[playerNum]["points"] += drawnCard["weight"];
+	console.log(deck.length + " cards left");
+	console.log("hand: " + players[playerNum]["hand"]);
+	console.log(players[playerNum]["points"]);
 }
 
 function displayCards()
@@ -90,7 +94,13 @@ function displayCards()
 			img.id=players[i] + "_" + [j];
 			var divPlayer = document.getElementById("player" + players[j]["number"]);
 			divPlayer.appendChild(img);
+
 		}
+
+		var playerPointsDiv = document.createElement("div");
+		var playerPoints = document.createTextNode("Total: " + players[j]["points"]);
+		playerPointsDiv.appendChild(playerPoints);
+		divPlayer.appendChild(playerPointsDiv);
 	}	
 
 }
@@ -102,23 +112,13 @@ function startGame()
 	shuffleDeck();
 	createPlayers(2);
 
-	player0_1 = drawCard();
-	player1_1 = drawCard();
-	player0_2 = drawCard();
-	player1_2 = drawCard();
+	drawCard(0);
+	drawCard(1);
+	drawCard(0);
+	drawCard(1);
 
-	players[0]["hand"].push(player0_1);
-	players[1]["hand"].push(player1_1);
-	players[0]["hand"].push(player0_2);
-	players[1]["hand"].push(player1_2);
 
 	displayCards();
-
-
-
-
-
-
 }
 
 startGame();
