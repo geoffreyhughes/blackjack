@@ -93,7 +93,20 @@ function displayCards()
 			img.height=180;
 			img.id=players[i] + "_" + [j];
 			var divPlayer = document.getElementById("player" + players[j]["number"]);
-			divPlayer.appendChild(img);
+
+			if (j == 0 && i == 1)
+			{
+				var back = document.createElement("img");
+				back.src="cards/GeoffsHouse.png";
+				back.weight=120;
+				back.height=180;
+				divPlayer.appendChild(back);
+			}
+
+			else 
+			{
+				divPlayer.appendChild(img);
+			}
 
 		}
 
