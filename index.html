@@ -6,11 +6,11 @@
     <h2> Dealer's Hand </h2>
     <!-- <img src=".png" alt="Dealer's first card" width=120 height=180> -->
 
-    <div id="player0"> </div>
+    <div id="player0_0"> </div>
 
     <h2> Player's Hand </h2>
 
-    <div id="player1"> </div>
+    <div id="player1_0"> </div>
 
 </div>
 
@@ -22,8 +22,9 @@
     
     <div class="game-body">
            <div class="game-options">
-            <input type="button" class="btn" value="hit" onclick="hit()">
-            <input type="button" class="btn" value="stay" onclick="stay()">
+            <input type="button" class="btn" value="Start Game" onclick="startGame()">
+            <input type="button" class="btn" value="Hit" onclick="hit(1, 0)">
+            <input type="button" class="btn" value="Stay" onclick="stay()">
             </div>
     
                 <div class="status" id="status"></div>
