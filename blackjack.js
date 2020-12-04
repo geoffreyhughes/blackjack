@@ -2,6 +2,8 @@
 console.log('Javascript running');
 
 
+
+
 var suits = ['spades', 'clubs', 'hearts', 'diamonds'];
 var ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 
@@ -59,27 +61,30 @@ function createPlayers(numPlayers)
 
 		hands[0] = hand;
 
-		var player = {number: i, points: 0, hands: hands};
+		var points = new Array();
+		points[0] = 0;
+
+		var player = {number: i, points: points, hands: hands, done: false};
 
 		players.push(player);
 	}
 }
 
-function drawCard(playerNum, handNumber)
+function drawCard(playerNumber, handNumber)
 {
 	var drawnCard = deck.pop();
 
-	players[playerNum]["hands"][handNumber].push(drawnCard);
-	players[playerNum]["points"] += drawnCard["weight"];
+	players[playerNumber]["hands"][handNumber].push(drawnCard);
+	players[playerNumber]["points"][handNumber] += drawnCard["weight"];
 	console.log(deck.length + " cards left");
-	console.log("hands: " + players[playerNum]["hands"][handNumber]);
-	console.log(players[playerNum]["points"]);
+	console.log("hands: " + players[playerNumber]["hands"][handNumber]);
+	console.log(players[playerNumber]["points"][handNumber]);
 
 	
 
 	// may want to remove console log to prevent player from inspecting the hidden card element
 	console.log(drawnCard);
-	console.log(players[playerNum]);
+	console.log(players[playerNumber]);
 }
 
 function displayCards()
@@ -118,15 +123,16 @@ function displayCards()
 				}
 
 			}
-
+			var playerPointsDiv = document.createElement("div");
+			var playerPoints = document.createTextNode("Total: " + players[j]["points"][i]);
+			playerPointsDiv.appendChild(playerPoints);
+			divPlayer.appendChild(playerPointsDiv);
 
 		}
 
-		var playerPointsDiv = document.createElement("div");
-		var playerPoints = document.createTextNode("Total: " + players[j]["points"]);
-		playerPointsDiv.appendChild(playerPoints);
-		divPlayer.appendChild(playerPointsDiv);
+
 	}	
+
 
 }
 
@@ -142,6 +148,26 @@ function clearBox(elementID)
     document.getElementById(elementID).innerHTML = "";
 }
 
+function removeElement(elementID)
+{
+	document.getElementById(elementID).remove();
+}
+
+
+function displayOptions()
+{
+
+	// Only for players = [1, p]
+	// Dealer knows what to do
+	for (var p = 1; p < players.length; p++)
+	{
+		for (var h = 0; h < players[p]["hands"].length; h++)
+		{
+
+		}
+	}
+}
+
 function hit(playerNumber, handNumber)
 {
 	console.log("HIT ME BABY ONE MORE TIME");
@@ -155,19 +181,26 @@ function hit(playerNumber, handNumber)
 	displayCards();
 	// // TODO: add hand logic with HTML, add card to the cooresponding hand that was hit
 
+	// Bust logic
+	if (players[playerNumber]["points"][handNumber] > 21)
+		endGame();
+
 }
 
 
 
-// function stay(playerNumber, handNumber)
-// {
+function stay(playerNumber, handNumber)
+{
+	// TODO: this entire function. maybe each player["done"] array cooresponds to a hand. Once all done==true
+	removeElement("player1_0_1");
 
-// }
 
-// function split(playerNumber, handNumber)
-// {
+}
 
-// }
+function split(playerNumber, handNumber)
+{
+
+}
 
 
 
@@ -184,7 +217,17 @@ function startGame()
 	drawCard(1, 0);
 
 
+
 	displayCards();
+	displayOptions();
 }
+
+
+function endGame()
+{
+
+}
+
+
 
 
