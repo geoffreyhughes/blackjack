@@ -164,6 +164,7 @@ function displayOptions()
 		for (var h = 0; h < players[p]["hands"].length; h++)
 		{
 
+
 		}
 	}
 }
@@ -193,6 +194,18 @@ function stay(playerNumber, handNumber)
 {
 	// TODO: this entire function. maybe each player["done"] array cooresponds to a hand. Once all done==true
 	removeElement("player1_0_1");
+
+
+
+	var btn = document.createElement("BUTTON");
+	btn.type="button";
+	brn.class="btn"
+	btn.value="hi";
+
+
+
+	var divPlayer = document.getElementById("player1_0");
+	divPlayer.appendChild(btn);
 
 
 }
